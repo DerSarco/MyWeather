@@ -37,4 +37,9 @@ class WeatherNetworkFeature {
     fun displayLoadingWhenIsFetching() {
        assertDisplayed(R.id.loading)
     }
+
+    @Test
+    fun displayForecastIcon() {
+        assertDisplayed(R.id.iv_forecastIcon)
+    }
 }
