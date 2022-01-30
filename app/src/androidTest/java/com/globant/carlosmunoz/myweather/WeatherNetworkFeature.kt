@@ -1,14 +1,13 @@
 package com.globant.carlosmunoz.myweather
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
+import com.globant.carlosmunoz.myweather.ui.MainActivity
 
 import org.junit.Test
 import org.junit.runner.RunWith
 
-import org.junit.Assert.*
 import org.junit.Rule
 
 /**
@@ -17,7 +16,7 @@ import org.junit.Rule
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-class WeatherFeature {
+class WeatherNetworkFeature {
 
     val mActivityRule = ActivityScenarioRule(MainActivity::class.java)
     @Rule get
@@ -27,7 +26,7 @@ class WeatherFeature {
         assertDisplayed("MyWeather")
         assertDisplayed("Santiago, CL")
         assertDisplayed("T:")
-        assertDisplayed("Weather")
+        assertDisplayed("WeatherNetwork")
         assertDisplayed("Settings")
     }
 }

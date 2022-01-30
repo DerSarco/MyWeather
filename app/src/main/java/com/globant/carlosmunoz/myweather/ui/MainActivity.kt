@@ -1,13 +1,13 @@
-package com.globant.carlosmunoz.myweather
+package com.globant.carlosmunoz.myweather.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.globant.carlosmunoz.myweather.R
 import com.globant.carlosmunoz.myweather.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
