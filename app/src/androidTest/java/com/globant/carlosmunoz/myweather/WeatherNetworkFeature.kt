@@ -1,5 +1,7 @@
 package com.globant.carlosmunoz.myweather
 
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
@@ -28,5 +30,11 @@ class WeatherNetworkFeature {
         assertDisplayed("T:")
         assertDisplayed("WeatherNetwork")
         assertDisplayed("Settings")
+    }
+
+
+    @Test
+    fun displayLoadingWhenIsFetching() {
+       assertDisplayed(R.id.loading)
     }
 }

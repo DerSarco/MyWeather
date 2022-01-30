@@ -11,5 +11,5 @@ data class WeatherResult(
     @SerializedName("sys")
     val sys: Sys,
     @SerializedName("weather")
-    val weather: List<Weather>,
+    val weather: List<Weather>
 )
