@@ -33,7 +33,7 @@ class SettingsFragment : Fragment() {
     }
 
     private fun setupRadioButtons() {
-        mBinding.radioGroup.setOnCheckedChangeListener { radioGroup, i ->
+        mBinding.radioGroup.setOnCheckedChangeListener { radioGroup, _ ->
             val selectedOption = radioGroup.checkedRadioButtonId
             saveUserPref(selectedOption)
         }
