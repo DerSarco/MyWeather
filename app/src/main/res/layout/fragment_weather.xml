@@ -7,6 +7,9 @@
         <variable
             name="weatherResult"
             type="com.globant.carlosmunoz.myweather.data.entities.WeatherResult" />
+        <variable
+            name="currentMeasure"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,10 +37,11 @@
 
             <ImageView
                 android:id="@+id/iv_forecastIcon"
-                android:layout_width="58dp"
-                android:layout_height="58dp"
+                android:layout_width="114dp"
+                android:layout_height="114dp"
                 tools:src="@drawable/ic_cloud"
                 android:layout_marginTop="60dp"
+                android:contentDescription="@string/icon_of_forecast"
                 android:setIconFromResult="@{weatherResult.weather.get(0).icon}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -62,6 +66,7 @@
                 android:layout_height="wrap_content"
                 android:setCurrentTemperature="@{String.valueOf(weatherResult.main.temp)}"
                 android:textSize="24sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_city" />
@@ -77,6 +82,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_currentTemperature" />
+
+            <TextView
+                android:id="@+id/tv_currentMeasure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:setCurrentMeasure="@{currentMeasure}"
+                android:textStyle="bold"
+                android:alpha="0.7"
+                android:textSize="14sp"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_minMaxTemp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,6 +13,7 @@ import com.globant.carlosmunoz.myweather.data.api.WeatherNetwork
 import com.globant.carlosmunoz.myweather.databinding.FragmentWeatherBinding
 import com.globant.carlosmunoz.myweather.repository.WeatherRepository
 import com.globant.carlosmunoz.myweather.service.WeatherService
+import com.globant.carlosmunoz.myweather.userPrefs
 import com.globant.carlosmunoz.myweather.viewmodels.WeatherViewModel
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.CoroutineScope
@@ -37,7 +38,6 @@ class WeatherFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         mBinding = FragmentWeatherBinding.inflate(inflater, container, false)
-
         checkLatLon()
         setHasOptionsMenu(true)
         setupObserver()
@@ -50,6 +50,11 @@ class WeatherFragment : Fragment() {
         mViewModel.weatherInfo.observe(viewLifecycleOwner) { result ->
             if (mViewModel.existQueries() && result.getOrNull() != null) {
                 mBinding.weatherResult = result.getOrNull()!!
+                with(userPrefs.unitPref) {
+                    mViewModel.setMeasureUnit(this!!)
+                    mBinding.currentMeasure = this
+                }
+
             } else {
                 mViewModel.isLoading.postValue(true)
             }

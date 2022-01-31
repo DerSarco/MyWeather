@@ -29,6 +29,16 @@ class WeatherBindings {
             "Min: $min / Max: $max".also { textView.text = it }
         }
 
+        @BindingAdapter("android:setCurrentMeasure")
+        @JvmStatic
+        fun setCurrentMeasure(textView: TextView, measure: String? = null) {
+            if (measure != null) {
+                "Your current measure is: ${measure.replaceFirstChar { c: Char -> c.uppercase() }}".also {
+                    textView.text = it
+                }
+            }
+        }
+
         @BindingAdapter("android:setIconFromResult")
         @JvmStatic
         fun setIconFromResult(imageView: ImageView, icon: String? = null) {

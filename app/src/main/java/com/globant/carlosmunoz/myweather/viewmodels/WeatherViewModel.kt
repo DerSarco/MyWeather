@@ -15,11 +15,11 @@ import kotlin.collections.HashMap
 class WeatherViewModel(
     private val repository: WeatherRepository
 ) : ViewModel() {
-
     private lateinit var timer: Timer
     private var existTimer = MutableLiveData<Boolean>()
-    var isLoading = MutableLiveData(false)
+    var isLoading = MutableLiveData<Boolean>()
     private var latLon = MutableLiveData<HashMap<String, String>>()
+    private var userPref = MutableLiveData<String>()
     private var weather = MutableLiveData<Result<WeatherResult>>()
     val weatherInfo: MutableLiveData<Result<WeatherResult>>
         get() = weather
@@ -63,7 +63,7 @@ class WeatherViewModel(
                     }
                 }
             },
-            0, 50000
+            0, (5 * 60* 1000)
         )
     }
 
@@ -74,10 +74,15 @@ class WeatherViewModel(
         }
     }
 
+    fun setMeasureUnit(unitValue: String) {
+        userPref.postValue(unitValue)
+    }
+
     private fun applyQueries(): HashMap<String, String> {
         val queries = hashMapOf<String, String>()
         queries["lat"] = latLon.value?.get("lat").toString()
         queries["lon"] = latLon.value?.get("lon").toString()
+        queries["units"] = userPref.value.toString()
         queries["appid"] = Constants.API_KEY
         return queries
     }
