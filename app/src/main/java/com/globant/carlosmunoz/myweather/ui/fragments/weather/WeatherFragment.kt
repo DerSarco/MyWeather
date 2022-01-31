@@ -1,11 +1,8 @@
 package com.globant.carlosmunoz.myweather.ui.fragments.weather
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.globant.carlosmunoz.myweather.R
@@ -13,6 +10,7 @@ import com.globant.carlosmunoz.myweather.data.api.WeatherNetwork
 import com.globant.carlosmunoz.myweather.databinding.FragmentWeatherBinding
 import com.globant.carlosmunoz.myweather.repository.WeatherRepository
 import com.globant.carlosmunoz.myweather.service.WeatherService
+import com.globant.carlosmunoz.myweather.utils.FusedLocationHelper
 import com.globant.carlosmunoz.myweather.viewmodels.WeatherVieModelFactory
 import com.globant.carlosmunoz.myweather.viewmodels.WeatherViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -28,6 +26,11 @@ class WeatherFragment : Fragment() {
     private val service = WeatherService(api)
     private val mRepository = WeatherRepository(service)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setupViewModel()
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,18 +41,22 @@ class WeatherFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if (checkPermissions()) {
-            Log.d("enter", "hasPermissions")
-            setupViewModel()
+        if (checkLatLon()) {
             setHasOptionsMenu(true)
             setupObserver()
             refreshWeatherData()
+            setupTimer()
         }
     }
 
     private fun setupObserver() {
+        mViewModel.longitudeUser.observe(viewLifecycleOwner) { exist ->
+            if (exist != null && mViewModel.latitudeUser.value != null) {
+                refreshWeatherData()
+            }
+        }
+
         mViewModel.weatherInfo.observe(viewLifecycleOwner) { result ->
-            Log.d("it", result.toString())
             if (result.getOrNull() != null) {
                 result.map {
                     mBinding.weatherResult = it
@@ -70,7 +77,7 @@ class WeatherFragment : Fragment() {
 
     private fun refreshWeatherData() {
         CoroutineScope(Dispatchers.IO).launch {
-            mViewModel.reloadWeatherInfo()
+            mViewModel.reloadWeatherData()
         }
     }
 
@@ -81,14 +88,13 @@ class WeatherFragment : Fragment() {
         )[WeatherViewModel::class.java]
     }
 
+    private fun checkLatLon() = FusedLocationHelper.getLastLocation(mViewModel)
 
-    private fun checkPermissions(): Boolean {
-        return ActivityCompat.checkSelfPermission(
-            requireActivity().applicationContext,
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
+    private fun setupTimer() {
+        mViewModel.setTimerForRequest()
     }
 
+    //Options Menu
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_top, menu)
@@ -97,13 +103,13 @@ class WeatherFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_refresh -> refreshWeatherData()
+            R.id.menu_refresh -> checkLatLon()
         }
         return true
     }
 
     override fun onDestroy() {
-        Log.d("onDestroy", "ejecutado")
+        mViewModel.cancelTimer()
         super.onDestroy()
     }
 }

@@ -8,8 +8,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object WeatherNetwork {
+    private val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
     private val okHttp = OkHttpClient.Builder()
+        .addInterceptor(interceptor)
         .build()
 
     private val retrofit = Retrofit.Builder()

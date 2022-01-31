@@ -28,7 +28,7 @@ class WeatherNetworkViewModelShould : BaseUnitTest() {
     @Test
     fun getCurrentWeatherFromRepository() = runBlockingTest {
         val viewModel = mockSuccessCase()
-        viewModel.reloadWeatherInfo()
+        viewModel.reloadWeatherData()
         viewModel.weatherInfo.getValueForTest()
         verify(repository, times(1)).getWeatherInfo(applyQueries())
     }
@@ -38,7 +38,7 @@ class WeatherNetworkViewModelShould : BaseUnitTest() {
     fun setLoadingToTrueWhenIsFetching() = runBlockingTest {
         val viewModel = mockSuccessCase()
         viewModel.isLoading.captureValues {
-            viewModel.reloadWeatherInfo()
+            viewModel.reloadWeatherData()
             Assert.assertEquals(true, values[0])
         }
 
@@ -48,7 +48,7 @@ class WeatherNetworkViewModelShould : BaseUnitTest() {
     @Test
     fun setLoadingToFalseWhenFetchFinish() = runBlockingTest {
         val viewModel = mockSuccessCase()
-        viewModel.reloadWeatherInfo()
+        viewModel.reloadWeatherData()
         viewModel.isLoading.captureValues {
             viewModel.weatherInfo.getValueForTest()
             Assert.assertEquals(false, values.last())

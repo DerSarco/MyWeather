@@ -9,7 +9,7 @@ import com.globant.carlosmunoz.myweather.data.entities.WeatherResult
 class WeatherBindings {
 
     companion object {
-        @BindingAdapter("setCityAndCountry")
+        @BindingAdapter("android:setCityAndCountry")
         @JvmStatic
         fun setCityAndCountry(textView: TextView, weather: WeatherResult? = null) {
             weather?.let {
@@ -17,19 +17,19 @@ class WeatherBindings {
             }
         }
 
-        @BindingAdapter("setCurrentTemperature")
+        @BindingAdapter("android:setCurrentTemperature")
         @JvmStatic
         fun setCurrentTemperature(textView: TextView, currentTemp: String = "") {
             "Current: $currentTemp".also { textView.text = it }
         }
 
-        @BindingAdapter("setMin", "setMax")
+        @BindingAdapter("android:setMin", "android:setMax")
         @JvmStatic
         fun setMinMax(textView: TextView, min: String = "", max: String = "") {
             "Min: $min / Max: $max".also { textView.text = it }
         }
 
-        @BindingAdapter("setIconFromResult")
+        @BindingAdapter("android:setIconFromResult")
         @JvmStatic
         fun setIconFromResult(imageView: ImageView, icon: String? = null) {
             icon?.let {
