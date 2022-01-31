@@ -18,12 +18,10 @@ import android.widget.Toast
 import com.globant.carlosmunoz.myweather.utils.FusedLocationHelper
 
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mNavController: NavController
     private lateinit var mBinding: ActivityMainBinding
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,9 +35,9 @@ class MainActivity : AppCompatActivity() {
     private fun askPermissions() {
         FusedLocationHelper.activity = this
         FusedLocationHelper.applicationContext = applicationContext
-        if(FusedLocationHelper.getLastLocation()){
-            bindView()
-        }
+        FusedLocationHelper.getLastLocation()
+        bindView()
+
     }
 
     private fun bindView() {

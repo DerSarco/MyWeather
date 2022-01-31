@@ -1,8 +1,6 @@
 package com.globant.carlosmunoz.myweather.service
 
-import android.util.Log
 import com.globant.carlosmunoz.myweather.data.api.WeatherAPI
-import com.globant.carlosmunoz.myweather.data.api.WeatherNetwork
 import com.globant.carlosmunoz.myweather.data.entities.WeatherResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -13,11 +11,12 @@ class WeatherService(
     private var weatherAPI: WeatherAPI
 ) {
 
-    suspend fun fetchWeather(queries: HashMap<String,String>):Flow<Result<WeatherResult>> {
-         return flow {
-             emit(Result.success(weatherAPI.fetchWeather(queries)))
-         }.catch {
-             emit(Result.failure(RuntimeException("Something went wrong")))
-         }
-     }
+    suspend fun fetchWeather(queries: HashMap<String, String>):
+            Flow<Result<WeatherResult>> {
+        return flow {
+            emit(Result.success(weatherAPI.fetchWeather(queries)))
+        }.catch {
+            emit(Result.failure(RuntimeException("Something went wrong")))
+        }
+    }
 }
