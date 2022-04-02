@@ -9,17 +9,12 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 
 class FusedLocationHelper {
-    private val fusedLocationClient: FusedLocationProviderClient =
-        LocationServices.getFusedLocationProviderClient(
-            applicationContext
-        )
-
 
     companion object {
         lateinit var applicationContext: Context
         lateinit var activity: MainActivity
         private const val requestPermissionCode = 10
-        fun getLastLocation(): Boolean{
+        fun getLastLocation(): Boolean {
             return if (ActivityCompat.checkSelfPermission(
                     applicationContext,
                     Manifest.permission.ACCESS_FINE_LOCATION
@@ -27,13 +22,11 @@ class FusedLocationHelper {
             ) {
                 requestPermission()
                 true
-            }else{
+            } else {
                 false
             }
         }
-
-
-
+        
         private fun requestPermission() {
             ActivityCompat.requestPermissions(
                 activity,
