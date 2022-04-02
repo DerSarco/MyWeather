@@ -15,6 +15,8 @@ import kotlin.collections.HashMap
 class WeatherViewModel(
     private val repository: WeatherRepository
 ) : ViewModel() {
+    private val TAG: String = "WeatherViewModel"
+
     private lateinit var timer: Timer
     private var existTimer = MutableLiveData<Boolean>()
     var isLoading = MutableLiveData<Boolean>()
@@ -59,7 +61,7 @@ class WeatherViewModel(
                 override fun run() {
                     viewModelScope.launch {
                         reloadWeatherData()
-                        Log.d("Done", "Reload called!")
+                        Log.d(TAG, "Reload called!")
                     }
                 }
             },

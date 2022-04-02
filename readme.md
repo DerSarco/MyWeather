@@ -8,7 +8,7 @@ Sync the build.gradle to get all the dependencies for execute the application.
 
 ## Configuration
 
-Is necessary get an API KEY from [apiweather](https://openweathermap.org/current) to execute the app.
+Is necessary get an API KEY from [Open Weather API](https://openweathermap.org/current) to execute the app.
 
 ## Set API KEY
 
